@@ -946,7 +946,263 @@ CSr, linuxdocker, pythondocker, Postman: RestApi.
 
 
 
+day 4
 
+Task1: fundamentals of network/info/cybersecurity.
+
+kali
+kali
+
+nmap
+bits - physical layer
+bytes - application layer
+physical layer - VIT - voltage interface transmission
+
+transmission
+3 ways to send bits
+- fiber optic
+- radio frequency / WIFI
+- 
+
+application layer - turn data into bits
+
+presentation layer - extension layers
+
+laman ng segment - TCP and UDP
+bakitmay layer - segment - source port destination port 
+packet - source IP destination IP - layer 3 - version, source ip, destination ip
+frame - source mac, dest map
+
+task 2: attack your klassmeyt:
+
+layer 3:nmap -sp 10.k.1.0/24
+
+layer 4: nmap -v 10.k.1.10
+
+layer 5: session layer attack:
+net use x: /delete
+net use \\10.42.1.10\ipc$
+
+layer 7: nakawin and drive c: ni kalaban gawin drive x: mo
+
+net use x: \\10.k.1.10\c$
+
+how to know if someone is hacking you netstat -s -p tcp
+3 way handshake - 
+
+block the schools for cutting class
+
+config t
+NO ip access-list standard NOISKUL
+ip access-list standard NOISKUL
+DENY   172.67.14.0   0.0.255.255
+DENY   50.6.160.0    0.0.255.255
+DENY   184.168.125.0   0.0.255.255
+DENY   155.137.92.0   0.0.255.255
+DENY   118.139.160.77   0.0.255.255
+Permit Any
+Int Gi 1
+ ip access-group NOISKUL in
+end
+
+convert to number 1-99
+
+Alternative: use standard ACL 1-99
+config t
+no access-list 3
+access-list 3 DENY   172.67.14.0   0.0.255.255
+access-list 3 DENY   50.6.160.0    0.0.255.255
+access-list 3 DENY   184.168.125.0   0.0.255.255
+access-list 3 DENY   155.137.92.0   0.0.255.255
+access-list 3 DENY   118.139.160.77   0.0.255.255
+access-list 3 permit Any
+Int gi 1
+ ip access-group 3 in
+end
+
+FORTINET 1-2-3 certified
+
+
+
+block torrent sites
+
+config t
+NO ip access-list standard NOTORS
+ip access-list standard NOTORS
+DENY   162.159.0.0   0.0.255.255
+DENY   104.21.0.0   0.0.255.255
+DENY   76.223.0.0   0.0.255.255
+DENY   104.21.0.0   0.0.255.255
+DENY   172.67.0.0   0.0.255.255
+DENY   104.21.0.0   0.0.255.255
+Permit Any
+Int Gi 1
+ ip access-group NOTORS in
+end
+
+Remove notors
+Int Gi 1
+ no ip access-group NOTORS in
+end
+
+block all IP
+block web TCP
+block voice UDP
+
+eventvwr.msc
+
+know elk stack for incident management
+
+web 310 HTTP, HTTPS, ping
+web311 DNS, HTTPS, ssh
+
+NO IP access-list Extended FWP1
+IP access-list Extended FWP1
+ Permit tcp Any host www.web310.com eq 80 log
+ Permit tcp Any host www.web310.com eq 443 log
+ Permit icmp Any host www.web310.com log
+ Permit tcp Any host www.web311.com eq 53 log
+ Permit tcp Any host www.web311.com eq 443 log
+ Permit tcp Any host www.web311.com eq 22 log
+ Int Gi 3
+  ip access-group FWP1 in
+REMOVE FIREWALL:
+CONfig t
+ Int Gi 3
+  NO ip access-group FWP1 in
+end
+
+config t
+NO IP access-list Extended WAF2
+IP access-list Extended WAF2
+ Permit tcp Any host www.web310.com eq 22 log
+ Permit tcp Any host www.web310.com eq 53 log
+ Permit tcp Any host www.web310.com eq 80 log
+ Permit tcp Any host www.web311.com eq 23 log
+ Permit tcp Any host www.web311.com eq 22 log
+ Permit tcp Any host www.web311.com eq 443 log 
+ Permit icmp  Any host www.web311.com log
+ Int Gi 3
+ip access-group WAF2 in
+
+WAF 3
+
+Make policy WAF3
+www.web310.com open only ssh, http
+www.web311.com open only https, ping
+Permit tcp Any host www.web311.com eq  log
+ Permit tcp Any host www.web311.com eq  log
+ Permit tcp Any host www.web311.com eq 443 log 
+
+
+config t
+NO IP access-list Extended WAF3
+IP access-list Extended WAF3
+Permit tcp Any host www.web310.com eq 22 log
+Permit tcp Any host www.web310.com eq 80 log
+ Permit tcp Any host www.web311.com eq 443 log
+Permit icmp  Any host www.web311.com log
+ Int Gi 3
+ip access-group WAF3 in
+
+config t
+NO IP access-list Extended PRANING3
+IP access-list Extended PRANING3
+ Permit tcp Any host www.web310.com eq 443 log
+ Permit icmp  Any host www.web311.com log
+Int Gi 3
+  ip access-group PRANING3 in
+
+config t
+no ip access-list extended Policy1
+ip access-list extended Policy1
+Permit tcp any host www.web310.com eq 80 log
+Permit tcp any host www.web310.com eq 443 log
+Permit tcp any host www.web311.com eq 22 log
+Permit tcp any  host www.web311.com eq 53 log
+Interface Gi 3
+ ip access-group Policy1 in
+ do sh ip access-list Policy1
+
+
+config t
+no ip access-list extended PROWEBAPP2
+ip access-list extended PROWEBAPP2
+Permit tcp any host www.web310.com eq 443 log
+Permit icmp  Any host www.web310.com log
+Permit tcp any  host www.web311.com eq 53 log
+Permit icmp  Any host www.web311.com log
+Interface Gi 3
+ ip access-group PROWEBAPP2 in
+ do sh ip access-list PROWEBAPP2
+
+
+
+
+real world site to site vpn
+step1: prepare FWvpnPH
+CONFIG T
+IP ROUTE 0.0.0.0  0.0.0.0 208.8.8.2
+no logging console
+Int Gi 2
+no shut
+ip add 192.168.102.11 255.255.255.0
+
+ip name-server 8.8.8.8 1.1.1.1
+ip domain-lookup
+int gi 1
+no shut
+ip add 208.8.8.11 255.255.255.0
+int gi 3
+no shut
+ip add 10.10.10.1 255.255.255.0
+do sh ip int brief
+
+
+step2: prepare FWvpnJP
+CONFIG T
+IP ROUTE 0.0.0.0  0.0.0.0 208.8.8.2
+no logging console
+Int Gi 2
+no shut
+ip add 192.168.102.12 255.255.255.0
+
+ip name-server 8.8.8.8 1.1.1.1
+ip domain-lookup
+int gi 1
+no shut
+ip add 208.8.8.12 255.255.255.0
+int gi 3
+no shut
+ip add 20.20.20.1 255.255.255.0
+do sh ip int brief
+
+
+bldg1inPINAS:
+sudo su
+ifconfig eth0 10.10.10.10 netmask 255.255.255.0 up
+route add default gw 10.10.10.1
+ping 10.10.10.1
+bldg1AinPINAS:
+sudo su
+ifconfig eth0 10.10.10.11 netmask 255.255.255.0 up
+route add default gw 10.10.10.1
+ping 10.10.10.1
+
+
+bldg2inJAPAN:
+sudo su
+ifconfig eth0 20.20.20.20 netmask 255.255.255.0 up
+route add default gw 20.20.20.1
+ping 20.20.20.1
+
+ReverseProxy/NATPortMapping:
+config t
+access-list 7 permit any
+ip nat inside source static tcp 10.10.10.10 80 208.8.8.101 8080
+ip nat inside source static tcp 10.10.10.10 443 208.8.8.101 8443
+ip nat inside source static tcp 10.10.10.11 22 208.8.8.101 222
+ip nat inside source list 7 int gi 1 Overload
 
 
 
