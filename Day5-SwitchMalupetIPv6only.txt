@@ -435,6 +435,7 @@ spanning-tree mst 2 root Secondary
 spanning-tree mst 3 root primary
 
 TASK15: Implementing Port-Security in Cisco/bawal Nakaw/bawalPalit.
+PREVENT LINK ATTACKS.
 Switch:
 baba:
 sh cdp nei
@@ -490,10 +491,11 @@ config t
 hostname PLDT-ITO
 Track 1 Int gi 0/1 line-protocol
 Int vlan 1
-standby 1 ip 10.__.1.6
+standby 1 ip 10.41.1.6
 standby 1 preempt
 standby 1 Priority 150
 standby 1 Track 1 decrement 60
+end
 
 @D1 para realworld:
 config t
@@ -508,7 +510,7 @@ COREBABA/GLOBE:
 config t
 hostname GLOBE-ITO
 Int vlan 1
-standby 1 ip 10.__.1.6
+standby 1 ip 10.41.1.6
 standby 1 preempt
 standby 1 Priority 100
 end
